@@ -2,8 +2,10 @@
 
 > begin
 	+ request // This trigger is tested first.
+	* <get premiercontact> == undefined => <set premiercontact=true>{topic=accueil}{ok}
 	- {ok}    // An {ok} in the response means it's okay to get a real reply
 < begin
+
 
 // The Botmaster's Name
 ! var master = localuser
@@ -176,6 +178,9 @@
 ! person your    = my
 ! person you     = I
 ! person i       = you
+! person je 	= tu
+! person tu = je
+
 
 // Set arrays
 ! array malenoun   = male guy boy dude boi man men gentleman gentlemen
@@ -188,3 +193,6 @@
 ! array measure    = inch in centimeter cm millimeter mm meter m inches centimeters millimeters meters
 ! array yes        = yes yeah yep yup ya yea
 ! array no         = no nah nope nay
+! array materiel	= telephone pc
+! array modele		= T1 T2 T3 PC1 PC2 PC3
+! array probleme	= reseau performance utilisateur

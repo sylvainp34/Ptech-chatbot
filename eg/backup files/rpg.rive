@@ -220,7 +220,7 @@
 // puzzle1 doesn't have a reply, so the reply from "puzzle" is given.
 
 > topic puzzle inherits mars
-	// Provides common directional functions for wandering around on Mars.
+	// Provides common directional functions for wandering around on Mars. 
 	+ north
 	- {topic=crashsite}{@look}
 
@@ -236,7 +236,7 @@
 
 > topic puzzle1 includes puzzle
 	+ look
-	- You wander to a part of the desert that looks different than other parts of the desert.
+	- You wander to a part of the desert that looks different than other parts of the desert. P1
 
 	// We get 'exits' from crashsite
 
@@ -246,7 +246,7 @@
 
 > topic puzzle2 includes puzzle
 	+ look
-	- This part looks even more different than the rest of the desert.
+	- This part looks even more different than the rest of the desert. P2
 
 	+ west
 	- {topic=puzzle3}{@look}
@@ -254,7 +254,7 @@
 
 > topic puzzle3 inherits mars puzzle
 	+ look
-	- Now this part is even MORE different. Also there is a space colony nearby.
+	- Now this part is even MORE different. Also there is a space colony nearby. P3
 
 	+ north
 	- {topic=entrance}{@look}

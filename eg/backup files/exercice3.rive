@@ -1,0 +1,57 @@
+
+> topic accueil
++ *
+-Bonjour, je suis le chatbot du support \n
+^ je vais vous aider dans votre demande. \n
+^ Quel est votre nom? {topic=nom}
+< topic
+
+> topic nom
++ [mon nom est|je m appelle] *
+- <set name={formal}<star1>{/formal}>bienvenue au support Ptech, <get name> \n
+^ vous nous sollicitez pour quel type de materiel? (telephone ou pc) {topic=materiel}
+< topic
+
+> topic materiel
+ + [*] (telephone|pc) [*]
+ - <set materiel=<star>> Ok, vous nous contacter pour un <get materiel> de quel modele? {topic=modele}
+ + *
+ - je n'ai pas compris votre réponse, veuillez indiquer s'il s'agit d'un "telephone" ou d'un "pc" {topic=materiel}
+ < topic
+
+> topic modele
++ [*](@modele)[*]
+- Ok donc il s'agit d'un <get materiel> de modele <set modele=<star>><star>.\n
+^ vous rencontrez un problème de reseau, performance ou utilisateur?{topic=probleme}
+
+
++*
+- je n'ai pas ce modèle là en référence, pouvez-vous me dire s'il s'agit d'un modèle de la liste suivante :\n
+^T1 T2 T3 PC1 PC2 PC3{topic=modele}
+< topic
+
+>topic probleme
++[*](@probleme)[*]
+- Je résume <get name>, vous avez un problème de <set probleme=<star>><get probleme> sur votre <get materiel>, modèle <get modele>. c'est corrrect?
+
++ (oui|non)
+* <star> == oui => Je vous oriente vers le bon support pour votre problème. A bientôt. {topic=support}
+* <star> == non => Pouvez vous me dire ce que je dois corriger? (nom / materiel / modele / probleme){topic=correction}
+
++*
+- Désolé, je n'ai pas compris votre réponse à ma dernière question.{topic=probleme}
+< topic
+
+>topic correction
++ (nom|materiel|modele|probleme)
+- Ok, nous allons corriger ce point, indiquez moi quel est le bon <star> ?{topic=<star>}
+
++*
+- Merci d'indiquer l'élément à corriger parmi cette liste : nom, materiel, modele, probleme
+< topic
+
+>topic support
++*
+- un technicien va vous prendre en charge d'ici quelques instants
+> topic
+

@@ -1,0 +1,8 @@
++ (bonjour|hello|coucou|salut)
+- bonjour, quel est ton nom?
+- coucou, comment tu t'appelles?
+- salut, je m'appelle PtechBot, et toi?
+
+
++ je m appelle *
+- <set name=<star>> enchanté <get name>

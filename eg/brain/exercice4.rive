@@ -1,0 +1,64 @@
+
+> topic accueil
++ *
+-Bonjour, je suis le chatbot du support \n
+^ je vais vous aider dans votre demande. {topic=dispatch}
+< topic
+
+> topic dispatch
++*
+* <get nom> == undefined => Quel est votre nom? {topic=nom}
+* <get materiel> == undefined => Quel est le materiel pour lequel vous nous contactez (telephone ou pc)? {topic=materiel}
+* <get modele> == undefined => Pouvez vous m'indiquer le modele SVP {topic=modele}
+* <get probleme> == undefined => veuillez préciser s'il s'agit d'un probleme reseau, performance ou utilisateur. {topic=probleme}
+- Je résume <get nom>, vous avez un problème de <get probleme> sur votre <get materiel>, modèle <get modele>. c'est corrrect?
++ (oui|non)
+* <star> == oui => Je vous oriente vers le bon support pour votre problème. A bientôt. {topic=support}
+* <star> == non => Pouvez vous me dire ce que je dois corriger? (nom / materiel / modele / probleme){topic=correction}
+< topic
+
+> topic nom
++ [mon nom est|je m appelle] *
+- <set nom={formal}<star1>{/formal}>bienvenue au support Ptech, <get nom> {topic=dispatch}
+< topic
+
+> topic materiel
+ + [*] (telephone|pc) [*]
+ - <set materiel=<star>> Ok, vous nous contacter pour un <get materiel>{topic=dispatch}
+ + *
+ - je n'ai pas compris votre réponse, veuillez indiquer s'il s'agit d'un "telephone" ou d'un "pc" {topic=materiel}
+ < topic
+
+> topic modele
++ [*](@modele)[*]
+- Ok donc il s'agit d'un <get materiel> de modele <set modele=<star>><star>.{topic=dispatch}
+
++*
+- je n'ai pas ce modèle là en référence, pouvez-vous me dire s'il s'agit d'un modèle de la liste suivante :\n
+^T1 T2 T3 PC1 PC2 PC3{topic=modele}
+< topic
+
+>topic probleme
++[*](@probleme)[*]
+- Ok, <get nom>, votre problème concerne <set probleme=<star>><get probleme>.{topic=dispatch}
++*
+- Désolé, je n'ai pas compris votre réponse à ma dernière question.{topic=probleme}
+< topic
+
+>topic correction
++ (nom|materiel|modele|probleme)
+- Ok, nous allons corriger ce point : <star> <set <star>=undefined>{topic=dispatch}
+
++*
+- Merci d'indiquer l'élément à corriger parmi cette liste : nom, materiel, modele, probleme
+< topic
+
+>topic support
++*
+- un technicien va vous prendre en charge d'ici quelques instants \n
+^RESUME DE LA DEMANDE : \n 
+^ Nom : <get nom> \n 
+^ Materiel / modele : <get materiel> / <get modele> \n 
+^ Problème  : <get probleme> \n
+> topic
+

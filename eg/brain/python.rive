@@ -37,6 +37,22 @@
     rs.set_uservar(uid, var, value)
 < object
 
+> object liste python
+def expand_array(self, array_name):
+        """Expand variables and return a set of keywords.
+        :param str array_name: The name of the array to expand.
+        :return list: The final array contents.
+        Warning is issued when exceptions occur."""
+        ret = self.master._array[array_name] if array_name in self.master._array else []
+        try:
+            ret = self.do_expand_array(array_name)
+        except Exception as e:
+            self.warn("Error expanding array '%s': %s" % (array_name, str(e)))
+        return ret
+choix = args
+expand_array(self, choix)
+< object
+
 + encode * in base64
 - OK: <call>base64 <star></call>
 
